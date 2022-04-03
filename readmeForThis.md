@@ -39,5 +39,4 @@
 
     $ npm install @capacitor/android // (one time in the project)
     $ ionic cap add android          // make android folder
-
 ```
