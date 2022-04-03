@@ -1,17 +1,10 @@
 import {
   IonBackButton,
-  IonButton,
   IonButtons,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
   IonCol,
   IonContent,
   IonGrid,
   IonHeader,
-  IonIcon,
   IonInput,
   IonItem,
   IonLabel,
@@ -22,11 +15,10 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import React, { useRef, useState } from "react";
-import { calculator, informationCircle, refresh } from "ionicons/icons";
+import { informationCircle } from "ionicons/icons";
 import BmiControls from "../components/BmiControls";
 import BmiCheck from "../components/BmiCheck";
 import BmiInputControl from "../components/BmiInputControl";
-// import styled from "styled-components";
 
 const NewItem: React.FC = () => {
   const [checked, setChecked] = useState(false);
@@ -43,6 +35,9 @@ const NewItem: React.FC = () => {
 
   const [calcUnit, setCalcUnit] = useState<'mkg' | 'ftlbs'>('mkg');
 
+  const heightFactor = calcUnit === 'mkg' ? 1 : 0.0328084;
+  const weightFactor = calcUnit === 'mkg' ? 1 : 2.20462;
+
   function caclHandler() {
     console.log(`🍎 ~ file: NewItem.tsx ~ line 9 ~ fabClickHandler ~ e`);
     setChecked(!checked);
@@ -56,8 +51,11 @@ const NewItem: React.FC = () => {
         return;
     }
 
+    const enterH = +enteredHeight / heightFactor;
+    const enterW = +enteredWeight / weightFactor;
+
     const bmiFeagure = Math.floor(
-      +enteredWeight / (((+enteredHeight / 100) * +enteredHeight) / 100)
+      +enterW / (((+enterH / 100) * +enterH) / 100)
     );
     setBmiFeagure(bmiFeagure);
 
@@ -75,6 +73,7 @@ const NewItem: React.FC = () => {
   function segChanged(value: 'mkg' | 'ftlbs') {
     console.log(`🍎 ~ file: NewItem.tsx ~ line 76 ~ segChanged ~ value`, value);
     setCalcUnit(value);
+    restHandler();
   }
 
   function restHandler() {
@@ -114,7 +113,7 @@ const NewItem: React.FC = () => {
           <IonRow>
             <IonCol>
               <IonItem>
-                <IonLabel position="floating">My Weight ({calcUnit === 'mkg' ? 'kg': 'bl'}): </IonLabel>
+                <IonLabel position="floating">My Weight ({calcUnit === 'mkg' ? 'kg': 'lbs'}): </IonLabel>
                 <IonInput
                   ref={myWeight}
                   clear-input={true}
@@ -140,14 +139,14 @@ const NewItem: React.FC = () => {
                 icon: 'star',
                 text: '다시입력',
                 handler: () => {
-                console.log('Favorite clicked');
+                  console.log('Favorite clicked');
                 }
             },
             {
                 text: '취소',
                 role: 'cancel',
                 handler: () => {
-                console.log('Cancel clicked');
+                  console.log('Cancel clicked');
                 }
             }
             ]}

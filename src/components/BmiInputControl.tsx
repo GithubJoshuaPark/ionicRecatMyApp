@@ -26,10 +26,10 @@ const BmiInputControl: React.FC<{
           onIonChange={(e) => (segItemChanged(e))}
         >
           <IonSegmentButton value="mkg">
-            <IonIcon icon={barbell} />
+            <span><IonIcon icon={barbell} />&nbsp;cm/kg</span>
           </IonSegmentButton>
           <IonSegmentButton value="ftlbs">
-            <IonIcon icon={analytics} />
+            <span><IonIcon icon={analytics} />&nbsp;ft/lbs</span>
           </IonSegmentButton>
         </IonSegment>
       </IonToolbar>

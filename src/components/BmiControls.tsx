@@ -9,6 +9,52 @@ import {
 import React from "react";
 import { calculator, refresh } from "ionicons/icons";
 
+import styled from 'styled-components';
+
+// MARK: - For using react-fusioncharts component
+// Step 2 - Include the react-fusioncharts component
+import ReactFC from "react-fusioncharts";
+
+// Step 3 - Include the fusioncharts library
+import FusionCharts from "fusioncharts";
+
+// Step 4 - Include the chart type
+import Column2D from "fusioncharts/fusioncharts.charts";
+// Include the theme as fusion
+import FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
+
+// Adding the chart and theme as dependency to the core fusioncharts
+ReactFC.fcRoot(FusionCharts, Column2D, FusionTheme);
+
+const dataSource = {
+    data: [
+      { label: "Venezuela", value: "290" },
+      { label: "Saudi", value: "260" },
+      { label: "Canada", value: "180" },
+      { label: "Iran", value: "140" },
+      { label: "Russia", value: "115" },
+      { label: "UAE", value: "100" },
+      { label: "US", value: "30" },
+      { label: "China", value: "30" }
+    ],
+    chart: {
+        caption: "Countries With Most Oil Reserves [2017-18]",
+        subCaption: "In MMbbl = One Million barrels",
+        xAxisName: "Country",
+        yAxisName: "Reserves (MMbbl)",
+        numberSuffix: "K",
+        theme: "fusion"
+    }
+};
+
+const chartConfigs = {
+    type: "column2d",
+    width: 600,
+    height: 400,
+    dataFormat: "json",
+    dataSource: dataSource
+};
+
 const BmiControls: React.FC<{
   bmiFeagure: number | undefined;
   bimLevel: string;
@@ -17,7 +63,9 @@ const BmiControls: React.FC<{
     <div>
       <IonCard>
         <IonCardHeader>
-          <IonCardSubtitle>비만도 결과: {props.bmiFeagure}</IonCardSubtitle>
+          <IonCardSubtitle>
+            비만도 결과: {props.bmiFeagure}&nbsp;
+          </IonCardSubtitle>
           <IonCardTitle>BMI 지수: {props.bimLevel}</IonCardTitle>
         </IonCardHeader>
 
@@ -30,8 +78,22 @@ const BmiControls: React.FC<{
           <IonIcon icon={refresh} slot="end" />
         </IonCardContent>
       </IonCard>
+
+      <ChartArea>
+        <ReactFC {...chartConfigs} />
+      </ChartArea>
+      
+
     </div>
   );
 };
 
 export default BmiControls;
+
+const ChartArea = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 50vw;
+`
