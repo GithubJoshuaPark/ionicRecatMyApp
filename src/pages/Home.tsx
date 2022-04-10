@@ -42,7 +42,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="primary">
+        <IonToolbar>
           <IonTitle>Blank</IonTitle>
         </IonToolbar>
       </IonHeader>
