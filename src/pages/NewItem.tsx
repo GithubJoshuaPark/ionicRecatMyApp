@@ -98,13 +98,13 @@ const NewItem: React.FC = () => {
       </IonHeader>
 
       <IonContent fullscreen className="ion-padding">
-        <BmiInputControl selectedValue={calcUnit} onSegChanged={segChanged}/>
         <IonGrid>
           <IonRow>
             <IonCol size-sm="8" offset-sm="2" size-md="6" offset-md="3" className="ion-no-padding">
               <IonCard>
                 <IonCardContent>
                   <IonGrid >
+                  <BmiInputControl selectedValue={calcUnit} onSegChanged={segChanged}/>
                     <IonRow>
                       <IonCol>
                         <IonItem>

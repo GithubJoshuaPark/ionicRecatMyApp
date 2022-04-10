@@ -23,24 +23,22 @@ const BmiInputControl: React.FC<{
   return (
     <div>
       {/*-- Segment in a toolbar --*/}
-      <IonGrid>
+
         <IonRow>
           <IonCol size-sm="8" offset-sm="2" size-md="6" offset-md="3" className="ion-no-padding">
-            <IonToolbar>
-              <IonSegment
+            <IonSegment
                 value={props.selectedValue}
                 onIonChange={(e) => (segItemChanged(e))}>
-                <IonSegmentButton value="mkg">
-                  <span><IonIcon icon={barbell} />&nbsp;cm/kg</span>
-                </IonSegmentButton>
-                <IonSegmentButton value="ftlbs">
-                  <span><IonIcon icon={analytics} />&nbsp;ft/lbs</span>
-                </IonSegmentButton>
-              </IonSegment>
-            </IonToolbar>
+              <IonSegmentButton value="mkg">
+                <span><IonIcon icon={barbell} />&nbsp;cm/kg</span>
+              </IonSegmentButton>
+              <IonSegmentButton value="ftlbs">
+                <span><IonIcon icon={analytics} />&nbsp;ft/lbs</span>
+              </IonSegmentButton>
+            </IonSegment>
           </IonCol>
         </IonRow>
-      </IonGrid>
+
 
     </div>
   );
