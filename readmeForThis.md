@@ -40,3 +40,14 @@
     $ npm install @capacitor/android // (one time in the project)
     $ ionic cap add android          // make android folder
 ```
+---
+```
+  // after installing another npm modules since have maden ios, and android folder
+  $ npx cap sync
+
+  // Open xcode
+  $ npx cap open ios
+
+  // Open Adnroid Studio
+  $ npx cap open android
+```

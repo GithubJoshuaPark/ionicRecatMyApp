@@ -1,5 +1,8 @@
 import {
+  IonCol,
+  IonGrid,
   IonIcon,
+  IonRow,
   IonSegment,
   IonSegmentButton,
   IonToolbar,
@@ -13,26 +16,32 @@ const BmiInputControl: React.FC<{
 }> = (props) => {
 
   function segItemChanged(e:CustomEvent) {
-    console.log(e.detail.value);
+    console.log(`🍎 ~ file: BmiInputControl.tsx ~ line 16 ~ segItemChanged ~ e`, e.detail.value);
     props.onSegChanged(e.detail.value);
   }
 
   return (
     <div>
       {/*-- Segment in a toolbar --*/}
-      <IonToolbar>
-        <IonSegment
-          value={props.selectedValue}
-          onIonChange={(e) => (segItemChanged(e))}
-        >
-          <IonSegmentButton value="mkg">
-            <span><IonIcon icon={barbell} />&nbsp;cm/kg</span>
-          </IonSegmentButton>
-          <IonSegmentButton value="ftlbs">
-            <span><IonIcon icon={analytics} />&nbsp;ft/lbs</span>
-          </IonSegmentButton>
-        </IonSegment>
-      </IonToolbar>
+      <IonGrid>
+        <IonRow>
+          <IonCol size-sm="8" offset-sm="2" size-md="6" offset-md="3" className="ion-no-padding">
+            <IonToolbar>
+              <IonSegment
+                value={props.selectedValue}
+                onIonChange={(e) => (segItemChanged(e))}>
+                <IonSegmentButton value="mkg">
+                  <span><IonIcon icon={barbell} />&nbsp;cm/kg</span>
+                </IonSegmentButton>
+                <IonSegmentButton value="ftlbs">
+                  <span><IonIcon icon={analytics} />&nbsp;ft/lbs</span>
+                </IonSegmentButton>
+              </IonSegment>
+            </IonToolbar>
+          </IonCol>
+        </IonRow>
+      </IonGrid>
+
     </div>
   );
 };

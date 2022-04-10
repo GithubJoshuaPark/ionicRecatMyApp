@@ -1,6 +1,8 @@
 import {
   IonBackButton,
   IonButtons,
+  IonCard,
+  IonCardContent,
   IonCol,
   IonContent,
   IonGrid,
@@ -99,34 +101,49 @@ const NewItem: React.FC = () => {
         <BmiInputControl selectedValue={calcUnit} onSegChanged={segChanged}/>
         <IonGrid>
           <IonRow>
-            <IonCol>
-              <IonItem>
-                <IonLabel position="floating">My Height ({calcUnit === 'mkg' ? 'cm': 'ft'}): </IonLabel>
-                <IonInput
-                  ref={myHeight}
-                  clear-input={true}
-                  color="primary"
-                ></IonInput>
-              </IonItem>
+            <IonCol size-sm="8" offset-sm="2" size-md="6" offset-md="3" className="ion-no-padding">
+              <IonCard>
+                <IonCardContent>
+                  <IonGrid >
+                    <IonRow>
+                      <IonCol>
+                        <IonItem>
+                          <IonLabel position="floating">My Height ({calcUnit === 'mkg' ? 'cm': 'ft'}): </IonLabel>
+                          <IonInput
+                            ref={myHeight}
+                            clear-input={true}
+                            color="primary"
+                          ></IonInput>
+                        </IonItem>
+                      </IonCol>
+                    </IonRow>
+                    <IonRow>
+                      <IonCol>
+                        <IonItem>
+                          <IonLabel position="floating">My Weight ({calcUnit === 'mkg' ? 'kg': 'lbs'}): </IonLabel>
+                          <IonInput
+                            ref={myWeight}
+                            clear-input={true}
+                            color="secondary"
+                          ></IonInput>
+                        </IonItem>
+                      </IonCol>
+                    </IonRow>
+                    <BmiCheck onCaclHandler={caclHandler} onRestHandler={restHandler}/>
+                    
+                  </IonGrid>
+                </IonCardContent>
+              </IonCard>
+
             </IonCol>
           </IonRow>
           <IonRow>
             <IonCol>
-              <IonItem>
-                <IonLabel position="floating">My Weight ({calcUnit === 'mkg' ? 'kg': 'lbs'}): </IonLabel>
-                <IonInput
-                  ref={myWeight}
-                  clear-input={true}
-                  color="secondary"
-                ></IonInput>
-              </IonItem>
+              {bimLevel && (<BmiControls bmiFeagure={bmiFeagure} bimLevel={bimLevel}/>)}
             </IonCol>
           </IonRow>
-          <BmiCheck onCaclHandler={caclHandler} onRestHandler={restHandler}/>
         </IonGrid>
 
-        {bimLevel && (<BmiControls bmiFeagure={bmiFeagure} bimLevel={bimLevel}/>)}
-        
         <IonToast
             isOpen={showToast1}
             onDidDismiss={() => setShowToast1(false)}

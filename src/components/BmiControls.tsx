@@ -4,12 +4,16 @@ import {
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonCol,
+  IonGrid,
   IonIcon,
+  IonRow,
 } from "@ionic/react";
 import React from "react";
 import { calculator, refresh } from "ionicons/icons";
 
 import styled from 'styled-components';
+import './BmiControls.css' 
 
 // MARK: - For using react-fusioncharts component
 // Step 2 - Include the react-fusioncharts component
@@ -61,7 +65,7 @@ const BmiControls: React.FC<{
 }> = (props) => {
   return (
     <div>
-      <IonCard>
+      <IonCard id="result">
         <IonCardHeader>
           <IonCardSubtitle>
             비만도 결과: {props.bmiFeagure}&nbsp;
@@ -70,19 +74,26 @@ const BmiControls: React.FC<{
         </IonCardHeader>
 
         <IonCardContent>
-          <IonIcon icon={calculator} slot="start" />
-          체질량지수는 자신의 몸무게(kg)를 키의 제곱(m)으로 나눈 값입니다.
-          체질량지수는 근육량, 유전적 원인, 다른 개인적 차이를 반영하지 못하는
-          단점이 있음에도 불구하고 조사자들이나 의료인들이 가장 많이 쓰는 방법
-          중 하나입니다.
-          <IonIcon icon={refresh} slot="end" />
+          <IonGrid>
+            <IonRow>
+              <IonCol>
+                <IonIcon icon={calculator} slot="start" />
+                체질량지수는 자신의 몸무게(kg)를 키의 제곱(m)으로 나눈 값입니다.<br/>
+                체질량지수는 근육량, 유전적 원인, 다른 개인적 차이를 반영하지 못하는<br/>
+                단점이 있음에도 불구하고 조사자들이나 의료인들이 가장 많이 쓰는 방법<br/>
+                중 하나입니다.<br/>
+                <IonIcon icon={refresh} slot="end" />
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+
         </IonCardContent>
+
       </IonCard>
 
       <ChartArea>
         <ReactFC {...chartConfigs} />
       </ChartArea>
-      
 
     </div>
   );
@@ -91,9 +102,9 @@ const BmiControls: React.FC<{
 export default BmiControls;
 
 const ChartArea = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
+    margin: auto;
+    width: 80vw;
     height: 50vw;
+    overflow: auto;
+    text-align: center;
 `
