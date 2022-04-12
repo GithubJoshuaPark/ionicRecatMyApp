@@ -23,11 +23,13 @@ import {
   IonFabButton,
   IonFab,
   IonAlert,
+  IonToast,
+  IonFabList,
 } from "@ionic/react";
 import styled from "styled-components";
 import { COURSE_DATA } from "./Courses";
 import "./CourseGoals.css";
-import { add, addOutline, trash } from "ionicons/icons";
+import { add, addOutline, logoAngular, logoChrome, logoFacebook, logoGithub, logoIonic, logoJavascript, logoNpm, logoPwa, logoReact, logoTwitter, logoVimeo, logoYoutube, trash } from "ionicons/icons";
 
 const CourseGoals: React.FC<RouteComponentProps> = (props) => {
 
@@ -39,6 +41,7 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
 
   const [showLoading, setShowLoading] = useState(true);
   const [startedDeleting, setStartedDeleting] = useState(false);
+  const [toastMessage, setToastMessage] = useState('')
 
   // MARK: - Methods(Handlers)
   const backPageHandler = () => {
@@ -52,6 +55,7 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
   const deleteGoalHandler = () => {
       setStartedDeleting(false);
       console.log("[Deleting...]")
+      setToastMessage('Deleted goal!')
   }
 
   const startEditGoalHandler = (event: React.MouseEvent) => {
@@ -98,11 +102,20 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
   return (
     // Fragments는 DOM에 별도의 노드를 추가하지 않고 여러 자식을 그룹화
     <>
+        <IonToast isOpen={!!toastMessage}
+                  duration={2000}
+                  message={toastMessage}
+                  position="bottom"
+                  onDidDismiss={() => {
+                      setToastMessage('')
+                  }}
+        />
         <IonAlert isOpen={startedDeleting}
                   header="Are u sure?"
                   message="Do u want to delete the goal? This cannot be undone."
                   buttons={[
                       {text: 'No', role: 'cancel', handler: () => {
+                          console.log("[canceling...]")
                           setStartedDeleting(false)
                       }},
                       {text: 'Yes', handler: deleteGoalHandler}
@@ -131,11 +144,11 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
                     </div> */}
 
             <IonLoading
-            cssClass="my-custom-class"
-            isOpen={showLoading}
-            onDidDismiss={() => setShowLoading(false)}
-            message={"Please wait..."}
-            duration={2000}
+                cssClass="my-custom-class"
+                isOpen={showLoading}
+                onDidDismiss={() => setShowLoading(false)}
+                message={"Please wait..."}
+                duration={2000}
             />
 
             {selectedCourse && (
@@ -172,6 +185,57 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
                 </IonFabButton>
             </FabContainer>
             }
+
+            <IonFab vertical="center" horizontal="center">
+                <IonFabButton>Share</IonFabButton>
+                <IonFabList side="top">
+                    <IonFabButton>
+                    <IonIcon icon={logoFacebook} />
+                    </IonFabButton>
+                    <IonFabButton>
+                    <IonIcon icon={logoTwitter} />
+                    </IonFabButton>
+                    <IonFabButton>
+                    <IonIcon icon={logoYoutube} />
+                    </IonFabButton>
+                </IonFabList>
+
+                <IonFabList side="end">
+                    <IonFabButton>
+                    <IonIcon icon={logoPwa} />
+                    </IonFabButton>
+                    <IonFabButton>
+                    <IonIcon icon={logoNpm} />
+                    </IonFabButton>
+                    <IonFabButton>
+                    <IonIcon icon={logoIonic} />
+                    </IonFabButton>
+                </IonFabList>
+
+                <IonFabList side="bottom">
+                    <IonFabButton>
+                    <IonIcon icon={logoGithub} />
+                    </IonFabButton>
+                    <IonFabButton>
+                    <IonIcon icon={logoJavascript} />
+                    </IonFabButton>
+                    <IonFabButton>
+                    <IonIcon icon={logoAngular} />
+                    </IonFabButton>
+                </IonFabList>
+
+                <IonFabList side="start">
+                    <IonFabButton>
+                    <IonIcon icon={logoVimeo} />
+                    </IonFabButton>
+                    <IonFabButton>
+                    <IonIcon icon={logoChrome} />
+                    </IonFabButton>
+                    <IonFabButton>
+                    <IonIcon icon={logoReact} />
+                    </IonFabButton>
+                </IonFabList>
+            </IonFab>
         </IonContent>
         </IonPage>
     </>
