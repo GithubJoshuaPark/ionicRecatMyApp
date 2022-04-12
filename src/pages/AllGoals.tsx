@@ -6,6 +6,7 @@ import {
   IonToolbar,
   IonBackButton,
   IonButtons,
+  IonMenuButton,
 } from "@ionic/react";
 import React from "react";
 import { RouteComponentProps } from "react-router";
@@ -17,7 +18,8 @@ const AllGoals: React.FC<RouteComponentProps> = (props) => {
         <IonHeader>
             <IonToolbar>
                 <IonButtons slot="start">
-                    <IonBackButton defaultHref="/home" />
+                    {/* <IonMenuButton/> make side menu shown in toggle */}
+                    <IonBackButton defaultHref="/courses/list" />
                 </IonButtons>
                 <IonTitle>All Goals</IonTitle>
             </IonToolbar>

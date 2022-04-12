@@ -1,7 +1,6 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, IonTabBar, IonTabButton, setupIonicReact, IonIcon, IonLabel, IonTabs } from '@ionic/react';
+import { IonApp, IonRouterOutlet, setupIonicReact, IonIcon, IonLabel, IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonList, IonMenuToggle } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -21,40 +20,62 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import NewItem from './pages/NewItem';
-import Courses from './pages/Courses';
-import CourseGoals from './pages/CourseGoals';
-import { list, trophyOutline } from 'ionicons/icons';
-import AllGoals from './pages/AllGoals';
 import './theme/theme.css';
+
+import { list, options } from 'ionicons/icons';
+import Filter from './pages/Filter';
+import CourseTabs from './pages/CourseTabs';
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/new" component={NewItem} />
-          <Route exact path="/courses" component={Courses} />
-          <Route exact path="/course-goal" component={CourseGoals} />
-          <Route exact path="/all-goals" component={AllGoals} />
-          <Redirect exact from="/" to="/courses" />
-        </IonRouterOutlet>
-        <IonTabBar slot='bottom'>
-          <IonTabButton tab="all-goals" href="/all-goals">
-            <IonIcon icon={list} />
-            <IonLabel>All Goals</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="courses" href="/courses">
-            <IonIcon icon={trophyOutline} />
-            <IonLabel>Courses</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
+
+      {/* IonMenu as the side menu */}
+      {/* The menu element should be a sibling to the root content element. */}
+      <IonMenu contentId='main'>
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>Course Goals</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          <IonList>
+            {/* IonMenuToggle makes itself close just after routerLinked */}
+            <IonMenuToggle> 
+              <IonItem button routerLink='/courses/home' routerDirection='none'>
+                <IonIcon slot="start" icon={options} />
+                <IonLabel>Home</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
+            <IonMenuToggle> 
+              <IonItem button routerLink='/courses/all-goals' routerDirection='none'>
+                <IonIcon slot="start" icon={list} />
+                <IonLabel>All Goals</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
+            <IonMenuToggle> 
+              <IonItem button routerLink='/filter' routerDirection='none'>
+                <IonIcon slot="start" icon={options} />
+                <IonLabel>Filter</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
+          </IonList>
+        </IonContent>
+      </IonMenu>
+
+      <IonRouterOutlet id="main">
+        <Route exact path="/filter" component={Filter} />
+
+        {/* CourseTabs 가 nestedRouterLink를 가지고 있어, 
+        CourseTabs 내부의 하위 link참조를 위해 exact prop은 사용하지 않음  */}
+        <Route path="/courses" component={CourseTabs} />
+        <Redirect to="/courses"/>
+      </IonRouterOutlet>
 
     </IonReactRouter>
+
   </IonApp>
 );
 

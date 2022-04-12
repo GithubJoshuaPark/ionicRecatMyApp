@@ -91,7 +91,7 @@ const NewItem: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/home" />
+            <IonBackButton defaultHref="/courses/home" />
           </IonButtons>
           <IonTitle>나의 체질량지수(BMI)</IonTitle>
         </IonToolbar>

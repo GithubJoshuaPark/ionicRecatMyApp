@@ -1,5 +1,6 @@
 import {
   IonBadge,
+  IonButtons,
   IonCheckbox,
   IonContent,
   IonFab,
@@ -10,6 +11,7 @@ import {
   IonItemDivider,
   IonLabel,
   IonList,
+  IonMenuButton,
   IonNote,
   IonPage,
   IonTitle,
@@ -22,13 +24,13 @@ import { RouteComponentProps } from "react-router";
 
 const checkboxList = [
   {val: 'Pepperoni', isChecked: true},
-  {val: 'Sausage', isChecked: false},
+  {val: 'Sausage', isChecked: true},
   {val: 'Mushroom', isChecked: false}
 ];
 
 const Home: React.FC<RouteComponentProps> = (props) => {
 
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
 
   function checkboxChangeHandler(e: any) {
     console.log(e.target.value);
@@ -36,13 +38,16 @@ const Home: React.FC<RouteComponentProps> = (props) => {
 
   function fabClickHandler(e: any) {
     console.log(`🍎 ~ file: Home.tsx ~ line 37 ~ fabClickHandler ~ e`, e);
-    props.history.push('/new');
+    props.history.push('/courses/new');
   }
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton/>
+          </IonButtons>
           <IonTitle>Blank</IonTitle>
         </IonToolbar>
       </IonHeader>
@@ -82,7 +87,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
             checkboxList.map(({val, isChecked}, i) => (
               <IonItem key={i}>
                 <IonLabel>{val}</IonLabel>
-                <IonCheckbox slot="end" value={isChecked} onIonChange={checkboxChangeHandler}></IonCheckbox>
+                <IonCheckbox slot="end" checked={isChecked} onIonChange={checkboxChangeHandler}></IonCheckbox>
               </IonItem>
             ))
           }

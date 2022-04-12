@@ -1,11 +1,9 @@
 import {
   IonCol,
-  IonGrid,
   IonIcon,
   IonRow,
   IonSegment,
   IonSegmentButton,
-  IonToolbar,
 } from "@ionic/react";
 import React from "react";
 import { analytics, barbell } from "ionicons/icons";
