@@ -16,29 +16,54 @@ import {
   useIonViewWillEnter,
   useIonViewWillLeave,
   IonLoading,
-  IonButton,
   IonIcon,
   IonItemSliding,
   IonItemOption,
   IonItemOptions,
+  IonFabButton,
+  IonFab,
+  IonAlert,
 } from "@ionic/react";
+import styled from "styled-components";
 import { COURSE_DATA } from "./Courses";
 import "./CourseGoals.css";
-import { add, create, trash } from "ionicons/icons";
+import { add, addOutline, trash } from "ionicons/icons";
 
 const CourseGoals: React.FC<RouteComponentProps> = (props) => {
+
+  // MARK: - Properties
   // page path variable로 전달된 (ex: /courses/:courseId 에서 courseId의 literal value)
   const selectedCourseId = useParams<{ courseId: string }>().courseId;
 
   const selectedCourse = COURSE_DATA.find((c) => c.id === selectedCourseId);
 
-  //   const [present, dismiss] = useIonLoading();
   const [showLoading, setShowLoading] = useState(true);
+  const [startedDeleting, setStartedDeleting] = useState(false);
 
+  // MARK: - Methods(Handlers)
   const backPageHandler = () => {
     props.history.goBack();
   };
 
+  const startDeleteItemHandler = () => {
+    setStartedDeleting(true);
+  };
+
+  const deleteGoalHandler = () => {
+      setStartedDeleting(false);
+      console.log("[Deleting...]")
+  }
+
+  const startEditGoalHandler = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    console.log("[startEditGoalHandler]...");
+  };
+
+  const startAddGoalHandler = () => {
+    console.log("[startAddGoalHandler]..");
+  };
+
+  // MARK: - LifeCycle
   // called every time the view is navigated to (regardless if initialized or not),
   // it's a good method to load data from services.
   useIonViewDidEnter(() => {
@@ -61,15 +86,6 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
     console.log("ionViewWillLeave event fired");
   });
 
-  const deleteItemHandler = () => {
-    console.log("[Deleted]...");
-  };
-
-  const startEditGoalHandler = (event: React.MouseEvent) => {
-    event.stopPropagation()
-    console.log("[startEditGoalHandler]...");
-  };
-
   useEffect(() => {
     console.log("[useEffect]...");
     setTimeout(() => {
@@ -78,76 +94,93 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
     }, 1000);
   }, []);
 
+  // MARK: - Rendering Template
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonBackButton defaultHref="/courses" />
-          </IonButtons>
-          <IonTitle>
-            {selectedCourse ? selectedCourse?.title : "No course found!"}
-          </IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent>
-        {/* <h2>This Works - course goal!!</h2>
-                <div>
-                <IonButton onClick={backPageHandler}>To Go Back</IonButton>
-                </div> */}
-
-        <IonLoading
-          cssClass="my-custom-class"
-          isOpen={showLoading}
-          onDidDismiss={() => setShowLoading(false)}
-          message={"Please wait..."}
-          duration={2000}
+    // Fragments는 DOM에 별도의 노드를 추가하지 않고 여러 자식을 그룹화
+    <>
+        <IonAlert isOpen={startedDeleting}
+                  header="Are u sure?"
+                  message="Do u want to delete the goal? This cannot be undone."
+                  buttons={[
+                      {text: 'No', role: 'cancel', handler: () => {
+                          setStartedDeleting(false)
+                      }},
+                      {text: 'Yes', handler: deleteGoalHandler}
+                  ]}
         />
+        <IonPage>
+        <IonHeader>
+            <IonToolbar>
+            <IonButtons slot="start">
+                <IonBackButton defaultHref="/courses/list" />
+            </IonButtons>
+            <IonTitle>
+                {selectedCourse ? selectedCourse?.title : "No course found!"}
+            </IonTitle>
+            {
+                <IonButtons slot="end" onClick={startAddGoalHandler}>
+                <IonIcon slot="icon-only" icon={addOutline} />
+                </IonButtons>
+            }
+            </IonToolbar>
+        </IonHeader>
+        <IonContent>
+            {/* <h2>This Works - course goal!!</h2>
+                    <div>
+                    <IonButton onClick={backPageHandler}>To Go Back</IonButton>
+                    </div> */}
 
-        {selectedCourse && (
-          <IonList>
-            {selectedCourse.goals.map((goal) => (
+            <IonLoading
+            cssClass="my-custom-class"
+            isOpen={showLoading}
+            onDidDismiss={() => setShowLoading(false)}
+            message={"Please wait..."}
+            duration={2000}
+            />
+
+            {selectedCourse && (
+            <IonList>
+                {selectedCourse.goals.map((goal) => (
                 <IonItemSliding key={goal.id}>
-
                     <IonItemOptions side="start">
-                        <IonItemOption onClick={deleteItemHandler} color="danger">
-                            <IonIcon slot="icon-only" icon={trash}/>
-                        </IonItemOption>
+                    <IonItemOption
+                        onClick={startDeleteItemHandler}
+                        color="danger"
+                    >
+                        <IonIcon slot="icon-only" icon={trash} />
+                    </IonItemOption>
                     </IonItemOptions>
 
-                    <IonItem 
-                             lines="full"
-                            // button 
-                            // onClick={deleteItemHandler}
-                    >
-                        <IonLabel>{goal.text}</IonLabel>
-                        {/* <IonButton
-                        fill="clear"
-                        color="dark"
-                        slot="end"
-                        onClick={startEditGoalHandler}
-                        >
-                        <IonIcon slot="icon-only" icon={create} />
-                        </IonButton> */}
+                    <IonItem lines="full">
+                    <IonLabel>{goal.text}</IonLabel>
                     </IonItem>
 
                     <IonItemOptions side="end">
-                        <IonItemOption onClick={startEditGoalHandler}>
-                            <IonIcon slot="icon-only" icon={create}/>
-                        </IonItemOption>
+                    <IonItemOption onClick={startEditGoalHandler}>
+                        <IonIcon slot="icon-only" icon={addOutline} />
+                    </IonItemOption>
                     </IonItemOptions>
-
                 </IonItemSliding>
+                ))}
+            </IonList>
+            )}
 
-            ))}
-          </IonList>
-        )}
-      </IonContent>
-    </IonPage>
+            {
+            <FabContainer vertical="bottom" horizontal="end" slot="fixed">
+                <IonFabButton onClick={startAddGoalHandler}>
+                <IonIcon icon={add} />
+                </IonFabButton>
+            </FabContainer>
+            }
+        </IonContent>
+        </IonPage>
+    </>
+
   );
 };
 
 export default CourseGoals;
-function userEffect(arg0: () => void, arg1: never[]) {
-  throw new Error("Function not implemented.");
-}
+
+const FabContainer = styled(IonFab)`
+  //   margin-bottom: 50px;
+`;
