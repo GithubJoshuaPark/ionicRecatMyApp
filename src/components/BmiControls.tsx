@@ -86,7 +86,6 @@ const BmiControls: React.FC<{
               </IonCol>
             </IonRow>
           </IonGrid>
-
         </IonCardContent>
 
       </IonCard>

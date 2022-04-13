@@ -19,10 +19,11 @@ import {
   IonMenuButton,
   IonCardSubtitle,
 } from "@ionic/react";
-import { add } from "ionicons/icons";
-import React from "react";
+import { add, addOutline } from "ionicons/icons";
+import React, { useState } from "react";
 import { RouteComponentProps } from "react-router";
 import styled from "styled-components";
+import AddCourseModal from "../components/AddCourseModal";
 import CourseGoals from './CourseGoals';
 
 export const COURSE_DATA = [
@@ -105,76 +106,93 @@ export const COURSE_DATA = [
 const Courses: React.FC<RouteComponentProps> = (props) => {
   // const history = useHistory(); // can be used instead of RouteComponentProps props
 
-  const fabClickHandler = (e: any) => {
-    console.log(`🍎 ~ file: Courses.tsx ~ line 8 ~ goToNewClickHandler ~ e`, e);
-    props.history.push("/courses/all-goals");
+  const [isAddGoalModalShow, setIsAddGoalModalShow] = useState(false)
+  
+//   const fabClickHandler = (e: any) => {
+//     console.log(`🍎 ~ file: Courses.tsx ~ line 8 ~ goToNewClickHandler ~ e`, e);
+//     props.history.push("/courses/all-goals");
+//   };
+
+  const goToDetail = (course:any, e: React.MouseEvent) => {
+    console.log(`🍎 ~ file: Courses.tsx ~ line 85 ~ goToDetail ~ course.id, e`, course.id);
+    props.history.push(`/courses/${course.id}`);
   };
 
-  const goToDetail = (e: any) => {
-    console.log(`🍎 ~ file: Courses.tsx ~ line 85 ~ goToDetail ~ e.id: `, e.id);
-    props.history.push(`/courses/${e.id}`);
+  const startAddGoalHandler = () => {
+    setIsAddGoalModalShow(true)
+  }
+
+  const cancelAddGoalHandler = () => {
+    console.log("[cancelAddGoalHandler]...");
+    setIsAddGoalModalShow(false);
   };
-
-
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonMenuButton />
-          </IonButtons>
-          <IonTitle>Courses</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen className="ion-padding">
-        <h2>This works - Courses page!</h2>
+    <>
+        <AddCourseModal show={isAddGoalModalShow} onCancel={cancelAddGoalHandler}/>
+        <IonPage>
+            <IonHeader>
+                <IonToolbar>
+                <IonButtons slot="start">
+                    <IonMenuButton />
+                </IonButtons>
+                <IonTitle>Courses</IonTitle>
+                <IonButtons slot="end" onClick={startAddGoalHandler}>
+                    <IonIcon slot="icon-only" icon={addOutline} />
+                </IonButtons>
+                </IonToolbar>
+            </IonHeader>
+            <IonContent fullscreen className="ion-padding">
+                <h2>This works - Courses page!</h2>
 
-        {/* <div>
-            <IonButton routerLink="/all-goal">To Course Goals</IonButton>
-            </div> */}
+                {/* <div>
+                    <IonButton routerLink="/all-goal">To Course Goals</IonButton>
+                    </div> */}
 
-        <IonGrid>
-          {COURSE_DATA.map((course) => (
-            <IonRow key={course.id}>
-              <IonCol size-md="4" offset-md="4">
-                <IonCard>
-                  <IonCardHeader className="ion-text-center">
-                    <IonCardTitle>{course.title}</IonCardTitle>
-                    <IonCardSubtitle>
-                      Enrolled on{" "}
-                      {course.enrolled.toLocaleDateString("kr-KR", {
-                        year: "numeric",
-                        month: "2-digit",
-                        day: "2-digit",
-                      })}
-                    </IonCardSubtitle>
-                  </IonCardHeader>
-                  <IonCardContent>
-                    <div className="ion-text-right">
-                      <IonButton
-                        // onClick={(course) => goToDetail(course)}
-                        routerLink={`/courses/${course.id}`}
-                        fill="clear"
-                        color="primary"
-                      >
-                        View Details
-                      </IonButton>
-                    </div>
-                  </IonCardContent>
-                </IonCard>
-              </IonCol>
-            </IonRow>
-          ))}
-        </IonGrid>
+                <IonGrid>
+                {COURSE_DATA.map((course) => (
+                    <IonRow key={course.id}>
+                    <IonCol size-md="4" offset-md="4">
+                        <IonCard>
+                        <IonCardHeader className="ion-text-center">
+                            <IonCardTitle>{course.title}</IonCardTitle>
+                            <IonCardSubtitle>
+                            Enrolled on{" "}
+                            {course.enrolled.toLocaleDateString("kr-KR", {
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            })}
+                            </IonCardSubtitle>
+                        </IonCardHeader>
+                        <IonCardContent>
+                            <div className="ion-text-right">
+                            <IonButton
+                                // make a function that binds to get parameters   
+                                onClick={goToDetail.bind(null,course)}
+                                // routerLink={`/courses/${course.id}`}
+                                fill="clear"
+                                color="primary"
+                            >
+                                View Details
+                            </IonButton>
+                            </div>
+                        </IonCardContent>
+                        </IonCard>
+                    </IonCol>
+                    </IonRow>
+                ))}
+                </IonGrid>
 
-        <FabContainer vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={fabClickHandler}>
-            <IonIcon icon={add} />
-          </IonFabButton>
-        </FabContainer>
-      </IonContent>
-    </IonPage>
+                <FabContainer vertical="bottom" horizontal="end" slot="fixed">
+                <IonFabButton onClick={startAddGoalHandler}>
+                    <IonIcon icon={add} />
+                </IonFabButton>
+                </FabContainer>
+            </IonContent>
+        </IonPage>
+    </>  
+
   );
 };
 
