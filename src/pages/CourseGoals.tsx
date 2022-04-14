@@ -77,7 +77,7 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
     setStartedDeleting(false);
     console.log("[Deleting...]");
     setToastMessage("Deleted goal!");
-    slidingOptionsRef.current?.closeOpened();
+    slidingOptionsRef.current?.closeOpened();  // <-- itemSliding element 가 열려있는 경우, 닫아준다
   };
 
   const startEditGoalHandler = (goalId: string, event: React.MouseEvent) => {
@@ -85,7 +85,7 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
     console.log("[startEditGoalHandler]...");
 
     const goal = selectedCourse?.goals.find((g) => g.id === goalId);
-    slidingOptionsRef.current?.closeOpened();
+    slidingOptionsRef.current?.closeOpened(); // <-- itemSliding element 가 열려있는 경우, 닫아준다
     if (!goal) {
       return;
     }

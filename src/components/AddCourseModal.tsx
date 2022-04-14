@@ -22,7 +22,7 @@ const AddCourseModal: React.FC<{
                 </IonItem>
               </IonCol>
             </IonRow>
-            <IonRow>
+            <IonRow className='ion-text-center'>
               <IonCol>
                 <IonButton fill='clear' color='dark' onClick={props.onCancel}>Cancel</IonButton>
               </IonCol>
