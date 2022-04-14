@@ -10,6 +10,7 @@
 ```
     $ npm install -g @ionic/cli
     $ ionic start ionicRecatMyapp blank --type=react
+    $ ionic start MobileCemReact blank --type=react
     $ cd ionicRecatMyapp
     $ npm install styled-components
 ```
@@ -50,4 +51,5 @@
 
   // Open Adnroid Studio
   $ npx cap open android
+  $ usage vscode extensions review for development env
 ```
