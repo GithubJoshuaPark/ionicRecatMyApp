@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact, IonIcon, IonLabel, IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonList, IonMenuToggle } from '@ionic/react';
+import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
 /* Core CSS required for Ionic components to work properly */
@@ -22,9 +22,9 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import './theme/theme.css';
 
-import { list, options } from 'ionicons/icons';
 import Filter from './pages/Filter';
 import CourseTabs from './pages/CourseTabs';
+import SideDrawer from './components/SideDrawer';
 
 setupIonicReact();
 
@@ -34,36 +34,7 @@ const App: React.FC = () => (
 
       {/* IonMenu as the side menu */}
       {/* The menu element should be a sibling to the root content element. */}
-      <IonMenu contentId='main'>
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>Course Goals</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent>
-          <IonList>
-            {/* IonMenuToggle makes itself close just after routerLinked */}
-            <IonMenuToggle> 
-              <IonItem button routerLink='/courses/home' routerDirection='none'>
-                <IonIcon slot="start" icon={options} />
-                <IonLabel>Home</IonLabel>
-              </IonItem>
-            </IonMenuToggle>
-            <IonMenuToggle> 
-              <IonItem button routerLink='/courses/all-goals' routerDirection='none'>
-                <IonIcon slot="start" icon={list} />
-                <IonLabel>All Goals</IonLabel>
-              </IonItem>
-            </IonMenuToggle>
-            <IonMenuToggle> 
-              <IonItem button routerLink='/filter' routerDirection='none'>
-                <IonIcon slot="start" icon={options} />
-                <IonLabel>Filter</IonLabel>
-              </IonItem>
-            </IonMenuToggle>
-          </IonList>
-        </IonContent>
-      </IonMenu>
+      <SideDrawer />
 
       <IonRouterOutlet id="main">
         <Route exact path="/filter" component={Filter} />

@@ -1,24 +1,37 @@
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonMenuButton } from '@ionic/react';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonMenuButton, IonList, IonItem, IonLabel, IonToggle } from '@ionic/react';
 import React from 'react'
 import { RouteComponentProps } from 'react-router'
-import styled from 'styled-components';
+import { COURSE_DATA } from '../mockUpdata/COURSE_DATA';
 
 const Filter:React.FC<RouteComponentProps> = (props) => {
-  return (
-    <IonPage>
-        <IonHeader>
-            <IonToolbar>
-                <IonButtons slot="start">
-                    <IonMenuButton/>
-                </IonButtons>
-                <IonTitle>Filter</IonTitle>
-            </IonToolbar>
-        </IonHeader>
-        <IonContent>
-            <h2>The filter page...</h2>
-        </IonContent>
-    </IonPage>
-  )
+    const courseFilterChangeHandler = (e: CustomEvent) => {
+        console.log(`🍎 ~ file: Filter.tsx ~ line 8 ~ courseFilterChangeHandler ~ e`, e);
+    }
+    
+    return (
+        <IonPage>
+            <IonHeader>
+                <IonToolbar>
+                    <IonButtons slot="start">
+                        <IonMenuButton/>
+                    </IonButtons>
+                    <IonTitle>Filter</IonTitle>
+                </IonToolbar>
+            </IonHeader>
+            <IonContent>
+                <IonList>
+                    {
+                        COURSE_DATA.map(v => (
+                            <IonItem key={v.id}>
+                                <IonLabel>{v.title}</IonLabel>
+                                <IonToggle value={v.id} onIonChange={courseFilterChangeHandler}/>
+                            </IonItem>
+                        ))
+                    }
+                </IonList>
+            </IonContent>
+        </IonPage>
+    )
 }
 
 export default Filter

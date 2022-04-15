@@ -5,7 +5,6 @@ import { Redirect, Route, RouteComponentProps, Switch } from 'react-router'
 import AllGoals from './AllGoals'
 import CourseGoals from './CourseGoals'
 import Courses from './Courses'
-import Filter from './Filter'
 import Home from './Home'
 import NewItem from './NewItem'
 
@@ -21,7 +20,7 @@ const CourseTabs:React.FC<RouteComponentProps> = (props) => {
                 {/* routerOutlet */}
                 <IonRouterOutlet>
                     {/* match.url: /courses */}
-                    <Redirect path="/courses" to="/courses/home" exact/> 
+                    <Redirect path="/courses" to="/courses/all-goals" exact/> 
 
                     {/* <Redirect path={`${match.url}`} to={`${match.url}/home`} exact/>  */}
                     <Switch>
