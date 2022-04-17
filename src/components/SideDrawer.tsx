@@ -13,24 +13,24 @@ const SideDrawer: React.FC<{
         </IonHeader>
         <IonContent>
             <IonList>
-            <IonMenuToggle> 
-                <IonItem button routerLink='/courses/home' routerDirection='none'>
-                <IonIcon slot="start" icon={options} />
-                <IonLabel>Home</IonLabel>
-                </IonItem>
-            </IonMenuToggle>
-            <IonMenuToggle> 
-                <IonItem button routerLink='/courses/all-goals' routerDirection='none'>
-                <IonIcon slot="start" icon={list} />
-                <IonLabel>All Goals</IonLabel>
-                </IonItem>
-            </IonMenuToggle>
-            <IonMenuToggle> 
-                <IonItem button routerLink='/filter' routerDirection='none'>
-                <IonIcon slot="start" icon={options} />
-                <IonLabel>Filter</IonLabel>
-                </IonItem>
-            </IonMenuToggle>
+                <IonMenuToggle> 
+                    <IonItem button routerLink='/courses/home' routerDirection='none'>
+                    <IonIcon slot="start" icon={options} />
+                    <IonLabel>Home</IonLabel>
+                    </IonItem>
+                </IonMenuToggle>
+                <IonMenuToggle> 
+                    <IonItem button routerLink='/courses/all-goals' routerDirection='none'>
+                    <IonIcon slot="start" icon={list} />
+                    <IonLabel>All Goals</IonLabel>
+                    </IonItem>
+                </IonMenuToggle>
+                <IonMenuToggle> 
+                    <IonItem button routerLink='/filter' routerDirection='none'>
+                    <IonIcon slot="start" icon={options} />
+                    <IonLabel>Filter</IonLabel>
+                    </IonItem>
+                </IonMenuToggle>
             </IonList>
         </IonContent>
     </IonMenu>

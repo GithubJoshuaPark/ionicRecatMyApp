@@ -13,15 +13,12 @@ const CourseTabs:React.FC<RouteComponentProps> = (props) => {
 
     // const { match } = props
     return (
-
             // This Component is a kind of nested routerOutlet below the parent('/courses') 
             <IonTabs>
-
                 {/* routerOutlet */}
                 <IonRouterOutlet>
                     {/* match.url: /courses */}
                     <Redirect path="/courses" to="/courses/all-goals" exact/> 
-
                     {/* <Redirect path={`${match.url}`} to={`${match.url}/home`} exact/>  */}
                     <Switch>
                         <Route exact path="/courses/home" component={Home} />
@@ -31,7 +28,6 @@ const CourseTabs:React.FC<RouteComponentProps> = (props) => {
                         <Route exact path="/courses/:courseId" component={CourseGoals} />
                         {/* <Route exact path="/filter" component={Filter} /> */}
                     </Switch>
-                    
                 </IonRouterOutlet>
 
                 {/* TabBars */}
@@ -45,7 +41,6 @@ const CourseTabs:React.FC<RouteComponentProps> = (props) => {
                         <IonLabel>Courses</IonLabel>
                     </IonTabButton>
                 </IonTabBar>
-
             </IonTabs>
     )
 }

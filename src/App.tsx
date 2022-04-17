@@ -25,6 +25,7 @@ import './theme/theme.css';
 import Filter from './pages/Filter';
 import CourseTabs from './pages/CourseTabs';
 import SideDrawer from './components/SideDrawer';
+import CoursesContextProvider from './data/CoursesContextProvider';
 
 setupIonicReact();
 
@@ -35,16 +36,16 @@ const App: React.FC = () => (
       {/* IonMenu as the side menu */}
       {/* The menu element should be a sibling to the root content element. */}
       <SideDrawer />
+      <CoursesContextProvider>
+        <IonRouterOutlet id="main">
+          <Route exact path="/filter" component={Filter} />
 
-      <IonRouterOutlet id="main">
-        <Route exact path="/filter" component={Filter} />
-
-        {/* CourseTabs 가 nestedRouterLink를 가지고 있어, 
-        CourseTabs 내부의 하위 link참조를 위해 exact prop은 사용하지 않음  */}
-        <Route path="/courses" component={CourseTabs} />
-        <Redirect to="/courses"/>
-      </IonRouterOutlet>
-
+          {/* CourseTabs 가 nestedRouterLink를 가지고 있어, 
+          CourseTabs 내부의 하위 link참조를 위해 exact prop은 사용하지 않음  */}
+          <Route path="/courses" component={CourseTabs} />
+          <Redirect to="/courses"/>
+        </IonRouterOutlet>
+      </CoursesContextProvider>
     </IonReactRouter>
 
   </IonApp>

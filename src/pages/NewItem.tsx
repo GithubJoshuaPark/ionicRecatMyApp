@@ -17,7 +17,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import React, { useRef, useState } from "react";
-import { informationCircle } from "ionicons/icons";
+import { informationCircle, star } from "ionicons/icons";
 import BmiControls from "../components/BmiControls";
 import BmiCheck from "../components/BmiCheck";
 import BmiInputControl from "../components/BmiInputControl";
@@ -153,7 +153,7 @@ const NewItem: React.FC = () => {
             buttons={[
             {
                 side: 'start',
-                icon: 'star',
+                icon: star,
                 text: '다시입력',
                 handler: () => {
                   console.log('Favorite clicked');
