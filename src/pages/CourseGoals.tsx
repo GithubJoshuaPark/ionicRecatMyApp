@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { RouteComponentProps, useParams } from "react-router";
-import { COURSE_DATA } from "../mockUpdata/COURSE_DATA";
 import {
   IonHeader,
   IonToolbar,
@@ -42,14 +41,18 @@ import {
 } from "ionicons/icons";
 import EditModal from "../components/EditModal";
 import EditableGoal from "../components/EditableGoal";
+import CoursesContext from "../data/courses-context";
 
 const CourseGoals: React.FC<RouteComponentProps> = (props) => {
   // MARK: - Properties
 
   // page path variable로 전달된 (ex: /courses/:courseId 에서 courseId의 literal value)
   const selectedCourseId = useParams<{ courseId: string }>().courseId;
+  const coursesCtx = useContext(CoursesContext);
 
-  const selectedCourse = COURSE_DATA.find((c) => c.id === selectedCourseId);
+  const selectedCourse = coursesCtx.courses.find(
+    (c) => c.id === selectedCourseId
+  );
 
   const [showLoading, setShowLoading] = useState(true);
   const [startedDeleting, setStartedDeleting] = useState(false);
@@ -57,22 +60,25 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedGoal, setSelectedGoal] = useState<any>();
 
-  const slidingOptionsRef = useRef<HTMLIonItemSlidingElement>(null)
+  const slidingOptionsRef = useRef<HTMLIonItemSlidingElement>(null);
+  const selectedGoalIdRef = useRef<string | null>(null);
 
   // MARK: - Methods(Handlers)
   const backPageHandler = () => {
     props.history.goBack();
   };
 
-  const startDeleteItemHandler = () => {
+  const startDeleteItemHandler = (goalId: string) => {
     setStartedDeleting(true);
+    selectedGoalIdRef.current = goalId;
   };
 
   const deleteGoalHandler = () => {
     setStartedDeleting(false);
     console.log("[Deleting...]");
+    coursesCtx.deleteGoal(selectedCourseId, selectedGoalIdRef.current!);
     setToastMessage("Deleted goal!");
-    slidingOptionsRef.current?.closeOpened();  // <-- itemSliding element 가 열려있는 경우, 닫아준다
+    slidingOptionsRef.current?.closeOpened(); // <-- itemSliding element 가 열려있는 경우, 닫아준다
   };
 
   const startEditGoalHandler = (goalId: string, event: React.MouseEvent) => {
@@ -86,19 +92,28 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
     }
 
     setIsEditing(true);
-    setSelectedGoal(goal);
+    setSelectedGoal(goal); // for update the goal
   };
 
   const cancelEditGoalHandler = () => {
     console.log("[cancelEditGoalHandler]...");
     setIsEditing(false);
-    setSelectedGoal(null);
+    setSelectedGoal(null); //
   };
 
   const startAddGoalHandler = () => {
     console.log("[startAddGoalHandler]..");
     setIsEditing(true);
     setSelectedGoal(null);
+  };
+
+  const onSave = (enteredGoal: string) => {
+    if (selectedGoal) {
+      coursesCtx.updateGoal(selectedCourseId, selectedGoal.id, enteredGoal);
+    } else {
+      coursesCtx.addGoal(selectedCourseId, enteredGoal);
+    }
+    setIsEditing(false);
   };
 
   // MARK: - LifeCycle
@@ -139,6 +154,7 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
       <EditModal
         show={isEditing}
         onCancel={cancelEditGoalHandler}
+        onSave={onSave}
         editedGoal={selectedGoal}
       />
       <IonToast
@@ -184,11 +200,6 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
           </IonToolbar>
         </IonHeader>
         <IonContent>
-          {/* <h2>This Works - course goal!!</h2>
-                        <div>
-                        <IonButton onClick={backPageHandler}>To Go Back</IonButton>
-                        </div> */}
-
           <IonLoading
             cssClass="my-custom-class"
             isOpen={showLoading}
@@ -200,11 +211,13 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
           {selectedCourse && (
             <IonList>
               {selectedCourse.goals.map((goal) => (
-                <EditableGoal key={goal.id}
-                              text={goal.text} 
-                              slidingRef={slidingOptionsRef} 
-                              onStartDelete={startDeleteItemHandler}
-                              onStartEdit={startEditGoalHandler.bind(null, goal.id)}/>
+                <EditableGoal
+                  key={goal.id}
+                  text={goal.text}
+                  slidingRef={slidingOptionsRef}
+                  onStartDelete={startDeleteItemHandler.bind(null, goal.id)}
+                  onStartEdit={startEditGoalHandler.bind(null, goal.id)}
+                />
               ))}
             </IonList>
           )}

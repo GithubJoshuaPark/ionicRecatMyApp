@@ -19,7 +19,6 @@ import { RouteComponentProps } from "react-router";
 import styled from "styled-components";
 import AddCourseModal from "../components/AddCourseModal";
 import CourseItem from "../components/CourseItem";
-import { COURSE_DATA } from "../mockUpdata/COURSE_DATA";
 import { format, parseISO } from "date-fns";
 import CoursesContext from "../data/courses-context";
 
@@ -36,7 +35,7 @@ const Courses: React.FC<RouteComponentProps> = (props) => {
   const [isAddGoalModalShow, setIsAddGoalModalShow] = useState(false)
   
   const goToDetail = (course:any) => {
-    console.log(`🍎 ~ file: Courses.tsx ~ line 36 ~ goToDetail ~ course.id, e`, course.id);
+    console.log(`🍎 ~ file: Courses.tsx ~ line 36 ~ goToDetail ~ course.id: ${course.id}`);
     props.history.push(`/courses/${course.id}`);
   };
 

@@ -11,15 +11,17 @@ import {
   IonLabel,
   IonMenuButton,
 } from "@ionic/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { RouteComponentProps } from "react-router";
-import { COURSE_DATA } from "../mockUpdata/COURSE_DATA";
+import CoursesContext from "../data/courses-context";
 
 const AllGoals: React.FC<RouteComponentProps> = (props) => {
 
     const [showLoading, setShowLoading] = useState(true);
+    const coursesCtx = useContext(CoursesContext);
     
-    let goals = COURSE_DATA.map(course => {
+    // get all goals using map/reduce
+    let goals = coursesCtx.courses.map(course => {
                     return course.goals.map(goal => {
                         return {...goal, courseTitle: course.title}
                     })

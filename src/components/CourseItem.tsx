@@ -24,7 +24,7 @@ const CourseItem: React.FC<{
                 fill="clear"
                 color="primary"
             >
-                View Details
+                View Goals
             </IonButton>
             </div>
         </IonCardContent>
