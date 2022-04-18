@@ -56,7 +56,11 @@ const AllGoals: React.FC<RouteComponentProps> = (props) => {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen className="ion-padding">
-                <IonList>
+                {
+                    goals.length === 0 &&
+                    <h2 className="ion-text-center">No Goals Found!</h2>
+                }
+                {goals.length > 0 && <IonList>
                     {
                        goals.map((v, i) => (
                             <IonItem key={v.id}>
@@ -68,7 +72,7 @@ const AllGoals: React.FC<RouteComponentProps> = (props) => {
                             </IonItem>
                        ))
                     }
-                </IonList>
+                </IonList>}
             </IonContent>
             </IonPage>}
         </>

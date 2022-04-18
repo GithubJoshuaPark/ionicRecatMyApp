@@ -2,9 +2,11 @@ import {
   IonBadge,
   IonButtons,
   IonCheckbox,
+  IonCol,
   IonContent,
   IonFab,
   IonFabButton,
+  IonGrid,
   IonHeader,
   IonIcon,
   IonItem,
@@ -14,6 +16,7 @@ import {
   IonMenuButton,
   IonNote,
   IonPage,
+  IonRow,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -91,8 +94,17 @@ const Home: React.FC<RouteComponentProps> = (props) => {
               </IonItem>
             ))
           }
-
+          
         </IonList>
+        
+        <IonGrid>
+          <IonRow>
+            <IonCol size-sm="10" offset-sm="1">
+              <iframe src="https://reactpwadisneyclone.web.app/" width="100%" height="500vh" scrolling ="no" ></iframe>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton onClick={fabClickHandler}>

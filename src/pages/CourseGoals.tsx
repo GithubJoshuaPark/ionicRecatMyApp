@@ -147,6 +147,26 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
     }, 1000);
   }, []);
 
+  let content = <h2 className="ion-text-center">No Goal Found!</h2>
+  if(!selectedCourse) {
+    content = <h2 className="ion-text-center">No Course Found!</h2>
+  }
+  if(selectedCourse && selectedCourse.goals.length > 0) {
+    content = (
+      <IonList>
+        {selectedCourse.goals.map((goal) => (
+          <EditableGoal
+            key={goal.id}
+            text={goal.text}
+            slidingRef={slidingOptionsRef}
+            onStartDelete={startDeleteItemHandler.bind(null, goal.id)}
+            onStartEdit={startEditGoalHandler.bind(null, goal.id)}
+          />
+        ))}
+       </IonList>
+    )
+  }
+
   // MARK: - Rendering Template
   return (
     // Fragments는 DOM에 별도의 노드를 추가하지 않고 여러 자식을 그룹화
@@ -208,19 +228,7 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
             duration={2000}
           />
 
-          {selectedCourse && (
-            <IonList>
-              {selectedCourse.goals.map((goal) => (
-                <EditableGoal
-                  key={goal.id}
-                  text={goal.text}
-                  slidingRef={slidingOptionsRef}
-                  onStartDelete={startDeleteItemHandler.bind(null, goal.id)}
-                  onStartEdit={startEditGoalHandler.bind(null, goal.id)}
-                />
-              ))}
-            </IonList>
-          )}
+          {content}
 
           {
             <FabContainer vertical="bottom" horizontal="end" slot="fixed">
@@ -230,7 +238,7 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
             </FabContainer>
           }
 
-          <IonFab vertical="center" horizontal="center">
+          {/* <IonFab vertical="center" horizontal="center">
             <IonFabButton>Share</IonFabButton>
             <IonFabList side="top">
               <IonFabButton>
@@ -279,7 +287,7 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
                 <IonIcon icon={logoReact} />
               </IonFabButton>
             </IonFabList>
-          </IonFab>
+          </IonFab> */}
         </IonContent>
       </IonPage>
     </>

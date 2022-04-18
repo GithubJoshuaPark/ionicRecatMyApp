@@ -78,7 +78,10 @@ const Courses: React.FC<RouteComponentProps> = (props) => {
                 <IonGrid>
                   {coursesCtx.courses.map((course) => (
                       <IonRow key={course.id}>
-                      <IonCol size-md="4" offset-md="4">
+                        {/* size-sm: min-width 540px */}
+                        {/* size-md: min-width 720px */}
+                      <IonCol size-sm="10" offset-sm="1"
+                              size-md="6" offset-md="3">
                           <CourseItem title={course.title}
                                       enrollMentDate={course.enrolled.toLocaleDateString("kr-KR", {
                                         year: "numeric",

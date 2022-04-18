@@ -34,11 +34,15 @@ const CourseTabs:React.FC<RouteComponentProps> = (props) => {
                 <IonTabBar slot='bottom'>
                     <IonTabButton tab="all-goals" href="/courses/all-goals">
                         <IonIcon icon={list} />
-                        <IonLabel>All Goals</IonLabel>
+                        <IonLabel>고객품질</IonLabel>
                     </IonTabButton>
                     <IonTabButton tab="courses" href="/courses/list">
                         <IonIcon icon={trophyOutline} />
-                        <IonLabel>Courses</IonLabel>
+                        <IonLabel>실시간품질</IonLabel>
+                    </IonTabButton>
+                    <IonTabButton tab="courses" href="/courses/list">
+                        <IonIcon icon={trophyOutline} />
+                        <IonLabel>서비스이용</IonLabel>
                     </IonTabButton>
                 </IonTabBar>
             </IonTabs>
