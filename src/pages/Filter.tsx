@@ -1,11 +1,15 @@
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonMenuButton, IonList, IonItem, IonLabel, IonToggle } from '@ionic/react';
-import React from 'react'
+import React, { useContext } from 'react'
 import { RouteComponentProps } from 'react-router'
-import { COURSE_DATA } from '../mockUpdata/COURSE_DATA';
+import CoursesContext from '../data/courses-context';
 
 const Filter:React.FC<RouteComponentProps> = (props) => {
+    
+    const coursesCtx = useContext(CoursesContext);
+
     const courseFilterChangeHandler = (e: CustomEvent) => {
-        console.log(`🍎 ~ file: Filter.tsx ~ line 8 ~ courseFilterChangeHandler ~ e`, e);
+        console.log(`🍎 ~ file: Filter.tsx ~ line 8 ~ courseFilterChangeHandler ~ course.id: ${e.detail.value}, checked: ${e.detail.checked}`);
+        coursesCtx.changeCourseFilter(e.detail.value, e.detail.checked);
     }
     
     return (
@@ -21,10 +25,10 @@ const Filter:React.FC<RouteComponentProps> = (props) => {
             <IonContent>
                 <IonList>
                     {
-                        COURSE_DATA.map(v => (
-                            <IonItem key={v.id}>
-                                <IonLabel>{v.title}</IonLabel>
-                                <IonToggle value={v.id} onIonChange={courseFilterChangeHandler}/>
+                        coursesCtx.courses.map(course => (
+                            <IonItem key={course.id}>
+                                <IonLabel>{course.title}</IonLabel>
+                                <IonToggle value={course.id} checked={course.included} onIonChange={courseFilterChangeHandler}/>
                             </IonItem>
                         ))
                     }

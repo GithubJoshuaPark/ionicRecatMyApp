@@ -9,6 +9,7 @@ const CoursesContextProvider: React.FC = (props) => {
       title: "React - The Complete Guide",
       enrolled: new Date(),
       goals: [],
+      included: true,
     },
   ]);
 
@@ -18,6 +19,7 @@ const CoursesContextProvider: React.FC = (props) => {
       title,
       enrolled: date,
       goals: [],
+      included: true,
     };
 
     setCourses((curCourses) => {
@@ -81,6 +83,20 @@ const CoursesContextProvider: React.FC = (props) => {
     });
   };
 
+  const changeCourseFilter = (courseId: string, isIncluded: boolean) => {
+
+    setCourses((courses) => {
+        const updatedCourses = [...courses];
+        const updatedCourseIndex = updatedCourses.findIndex(
+          (course) => course.id === courseId
+        );
+  
+        const updatedCourse = { ...updatedCourses[updatedCourseIndex], included: isIncluded };
+        updatedCourses[updatedCourseIndex] = updatedCourse;
+        return updatedCourses;
+    });
+  };
+
   return (
     <CoursesContext.Provider
       value={{
@@ -89,6 +105,7 @@ const CoursesContextProvider: React.FC = (props) => {
         addGoal,
         deleteGoal,
         updateGoal,
+        changeCourseFilter
       }}
     >
       {props.children}

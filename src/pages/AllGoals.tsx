@@ -21,7 +21,7 @@ const AllGoals: React.FC<RouteComponentProps> = (props) => {
     const coursesCtx = useContext(CoursesContext);
     
     // get all goals using map/reduce
-    let goals = coursesCtx.courses.map(course => {
+    let goals = coursesCtx.courses.filter(course => course.included === true).map(course => {
                     return course.goals.map(goal => {
                         return {...goal, courseTitle: course.title}
                     })
@@ -48,7 +48,8 @@ const AllGoals: React.FC<RouteComponentProps> = (props) => {
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">
-                        <IonMenuButton/> make side menu shown in toggle
+                        <IonMenuButton/> 
+                        {/* make side menu shown in toggle */}
                         {/* <IonBackButton defaultHref="/courses/list" /> */}
                     </IonButtons>
                     <IonTitle>All Goals</IonTitle>
