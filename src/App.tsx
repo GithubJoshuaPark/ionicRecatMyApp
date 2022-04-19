@@ -37,7 +37,7 @@ const App: React.FC = () => (
       {/* The menu element should be a sibling to the root content element. */}
       <SideDrawer />
       <CoursesContextProvider>
-        <IonRouterOutlet id="main">
+        <IonRouterOutlet id="main" animated={true}>
           <Route exact path="/filter" component={Filter} />
 
           {/* CourseTabs 가 nestedRouterLink를 가지고 있어, 

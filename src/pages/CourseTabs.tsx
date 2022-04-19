@@ -16,7 +16,7 @@ const CourseTabs:React.FC<RouteComponentProps> = (props) => {
             // This Component is a kind of nested routerOutlet below the parent('/courses') 
             <IonTabs>
                 {/* routerOutlet */}
-                <IonRouterOutlet>
+                <IonRouterOutlet animated={true}>
                     {/* match.url: /courses */}
                     <Redirect path="/courses" to="/courses/all-goals" exact/> 
                     {/* <Redirect path={`${match.url}`} to={`${match.url}/home`} exact/>  */}
