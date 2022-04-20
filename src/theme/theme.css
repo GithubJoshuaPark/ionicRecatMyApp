@@ -5,3 +5,7 @@
     --ion-tab-bar-color: var(--ion-color-primary-contrast);
     --ion-toolbar-color: var(--ion-color-secondary);
 }
+
+ion-segment {
+    --background: var(--ion-coloor-secondary);
+}

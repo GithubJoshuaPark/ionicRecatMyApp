@@ -75,6 +75,7 @@ const Courses: React.FC<RouteComponentProps> = (props) => {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen className="ion-padding">
+
                 <IonGrid>
                   {coursesCtx.courses.map((course) => (
                       <IonRow key={course.id}>
