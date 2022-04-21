@@ -53,3 +53,15 @@
   $ npx cap open android
   $ usage vscode extensions review for development env
 ```
+---
+> React fontAwesome 사용하기
+[ref React에서 Font Awesome 사용하기](https://www.daleseo.com/react-font-awesome/)
+> 무료로 제공되는 Solid, Regular Brands 3개의 카테고리에 대한 패키지만 설치하겠습니다. 
+> (항상 3개를 다 설치할 필요는 없고 사용하시고 싶은 아이콘이 속한 카테고리만 설치하시면 됩니다.)
+> Font Awesome을 React 컴포넌트 형태로 사용할 수 있도록 해주는 @fortawesome/react-fontawesome 이라는 패키지는 설치합니다.
+```
+    $ npm i @fortawesome/fontawesome-svg-core
+    $ npm i @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/free-brands-svg-icons
+    $ npm i @fortawesome/react-fontawesome
+```
+---
