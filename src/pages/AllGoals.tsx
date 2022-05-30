@@ -18,7 +18,7 @@ import {
   IonRow,
   IonInput,
 } from "@ionic/react";
-import { gitNetworkOutline, pin, search } from "ionicons/icons";
+import { search } from "ionicons/icons";
 import React, { useContext, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import CoursesContext from "../data/courses-context";

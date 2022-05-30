@@ -9,35 +9,18 @@ import {
   IonBackButton,
   IonButtons,
   IonList,
-  useIonViewDidEnter,
-  useIonViewDidLeave,
-  useIonViewWillEnter,
-  useIonViewWillLeave,
   IonLoading,
   IonIcon,
   IonFabButton,
   IonFab,
   IonAlert,
   IonToast,
-  IonFabList,
 } from "@ionic/react";
 import styled from "styled-components";
 import "./CourseGoals.css";
 import {
   add,
   addOutline,
-  logoAngular,
-  logoChrome,
-  logoFacebook,
-  logoGithub,
-  logoIonic,
-  logoJavascript,
-  logoNpm,
-  logoPwa,
-  logoReact,
-  logoTwitter,
-  logoVimeo,
-  logoYoutube,
 } from "ionicons/icons";
 import EditModal from "../components/EditModal";
 import EditableGoal from "../components/EditableGoal";
@@ -116,28 +99,6 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
     setIsEditing(false);
   };
 
-  // MARK: - LifeCycle
-  // called every time the view is navigated to (regardless if initialized or not),
-  // it's a good method to load data from services.
-  useIonViewDidEnter(() => {
-    console.log("ionViewDidEnter event fired");
-  });
-
-  // 페이지가 사용자에게 표시될 때까지 실행되지 않으므로 로딩 표시기나
-  // 스켈레톤 화면을 사용하여 전환이 완료된 후 콘텐츠가 부자연스럽게 깜박이지 않도록 할 수 있습니다.
-  useIonViewDidLeave(() => {
-    console.log("ionViewDidLeave event fired");
-  });
-
-  //
-  useIonViewWillEnter(() => {
-    console.log("ionViewWillEnter event fired");
-  });
-
-  // Can be used for cleanup, like unsubscribing from data sources.
-  useIonViewWillLeave(() => {
-    console.log("ionViewWillLeave event fired");
-  });
 
   useEffect(() => {
     console.log("[useEffect]...");
@@ -238,56 +199,6 @@ const CourseGoals: React.FC<RouteComponentProps> = (props) => {
             </FabContainer>
           }
 
-          {/* <IonFab vertical="center" horizontal="center">
-            <IonFabButton>Share</IonFabButton>
-            <IonFabList side="top">
-              <IonFabButton>
-                <IonIcon icon={logoFacebook} />
-              </IonFabButton>
-              <IonFabButton>
-                <IonIcon icon={logoTwitter} />
-              </IonFabButton>
-              <IonFabButton>
-                <IonIcon icon={logoYoutube} />
-              </IonFabButton>
-            </IonFabList>
-
-            <IonFabList side="end">
-              <IonFabButton>
-                <IonIcon icon={logoPwa} />
-              </IonFabButton>
-              <IonFabButton>
-                <IonIcon icon={logoNpm} />
-              </IonFabButton>
-              <IonFabButton>
-                <IonIcon icon={logoIonic} />
-              </IonFabButton>
-            </IonFabList>
-
-            <IonFabList side="bottom">
-              <IonFabButton>
-                <IonIcon icon={logoGithub} />
-              </IonFabButton>
-              <IonFabButton>
-                <IonIcon icon={logoJavascript} />
-              </IonFabButton>
-              <IonFabButton>
-                <IonIcon icon={logoAngular} />
-              </IonFabButton>
-            </IonFabList>
-
-            <IonFabList side="start">
-              <IonFabButton>
-                <IonIcon icon={logoVimeo} />
-              </IonFabButton>
-              <IonFabButton>
-                <IonIcon icon={logoChrome} />
-              </IonFabButton>
-              <IonFabButton>
-                <IonIcon icon={logoReact} />
-              </IonFabButton>
-            </IonFabList>
-          </IonFab> */}
         </IonContent>
       </IonPage>
     </>

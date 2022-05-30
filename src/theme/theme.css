@@ -9,3 +9,24 @@
 ion-segment {
     --background: var(--ion-coloor-secondary);
 }
+
+@font-face {
+    font-family: 'LGSmHaB';
+    src: url("../assets/fonts/LGSmHaB.ttf") format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'LGSmHaL';
+    src: url("../assets/fonts/LGSmHaL.ttf") format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'LGSmHaR';
+    src: url("../assets/fonts/LGSmHaR.ttf") format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'LGSmHaSB';
+    src: url("../assets/fonts/LGSmHaSB.ttf") format('truetype');
+  
+  }
