@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.mobileCem.lguplus',
-  appName: 'mobileCemLgUplus',
+  appId: '',
+  appName: '',
   webDir: 'build',
   bundledWebRuntime: false
 };
